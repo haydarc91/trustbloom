@@ -9,6 +9,7 @@ import Screenshots from '../components/Screenshots';
 import Pricing from '../components/Pricing';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
+import Section from '../components/ui/Section';
 
 const Index = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -38,6 +39,21 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        
+        <Section color="default">
+          <div className="py-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+                Ons <span className="text-brand-600 relative">unieke concept</span> helpt bedrijven hun online reputatie te verbeteren
+              </h2>
+              <p className="text-lg text-gray-600">
+                Ons reviewplatform zorgt voor gemiddeld 30% meer positieve reviews dan andere platforms. 
+                Ontdek hoe wij uw online aanwezigheid kunnen transformeren.
+              </p>
+            </div>
+          </div>
+        </Section>
+        
         <HowItWorks />
         <Benefits />
         <Testimonials />
