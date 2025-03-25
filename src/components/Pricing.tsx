@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Check, X } from 'lucide-react';
 import Section from './ui/Section';
-import Badge from './ui/badge';
+import { Badge } from './ui/badge';
 import {
   Table,
   TableBody,

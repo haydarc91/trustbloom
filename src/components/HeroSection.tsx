@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Star, StarHalf, Sparkles } from 'lucide-react';
-import Badge from './ui/badge';
+import { Badge } from './ui/badge';
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
