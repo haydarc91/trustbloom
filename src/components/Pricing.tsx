@@ -3,14 +3,6 @@ import React, { useState } from 'react';
 import { Check, X } from 'lucide-react';
 import Section from './ui/Section';
 import { Badge } from './ui/badge';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from './ui/table';
 
 interface PricingPlan {
   name: string;
@@ -96,7 +88,7 @@ const featureComparison: FeatureComparison[] = [
 
 const Pricing = () => {
   const [annual, setAnnual] = useState(true);
-  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  const [viewMode, setViewMode] = useState<'cards' | 'comparison'>('cards');
 
   return (
     <Section id="pricing" className="bg-gradient-to-b from-blue-50 to-white py-24" hasPattern>
@@ -138,9 +130,9 @@ const Pricing = () => {
               Pakketten
             </button>
             <button
-              onClick={() => setViewMode('table')}
+              onClick={() => setViewMode('comparison')}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                viewMode === 'table' ? 'bg-brand-500 text-white' : 'bg-transparent text-gray-600'
+                viewMode === 'comparison' ? 'bg-brand-500 text-white' : 'bg-transparent text-gray-600'
               }`}
             >
               Vergelijking
@@ -150,25 +142,25 @@ const Pricing = () => {
       </div>
 
       {viewMode === 'cards' ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
+              className={`relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
                 plan.isPopular
-                  ? 'shadow-xl border-2 border-brand-500 relative mt-6'
+                  ? 'shadow-xl border-2 border-brand-500 mt-0'
                   : 'shadow-card bg-white border border-gray-100'
               }`}
             >
               {plan.isPopular && (
-                <div className="absolute top-0 inset-x-0 text-center transform -translate-y-1/2">
+                <div className="absolute top-0 inset-x-0 text-center mt-4">
                   <Badge variant="default" className="px-6 py-1.5 bg-brand-500 text-white">
                     Meest gekozen
                   </Badge>
                 </div>
               )}
 
-              <div className={`p-8 ${plan.isPopular ? 'bg-gradient-to-br from-white to-brand-50 pt-12' : 'bg-white'}`}>
+              <div className={`p-8 ${plan.isPopular ? 'bg-gradient-to-br from-white to-brand-50 pt-16' : 'bg-white'}`}>
                 <h3 className="text-2xl font-bold mb-2 text-gray-900">{plan.name}</h3>
                 <p className="text-gray-600 mb-6 h-12">{plan.description}</p>
 
@@ -208,96 +200,132 @@ const Pricing = () => {
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl shadow-xl bg-white border border-gray-100 mt-10">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-brand-50">
-                <TableHead className="w-1/4 font-bold text-gray-900">Functie</TableHead>
-                <TableHead className="text-center font-bold text-gray-900">Starter</TableHead>
-                <TableHead className="text-center font-bold text-gray-900 bg-brand-100 relative">
-                  <div className="absolute -top-10 inset-x-0 text-center">
-                    <Badge variant="default" className="px-4 py-1 bg-brand-500 text-white">
+        <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+          <div className="grid grid-cols-4 divide-x divide-gray-100">
+            {/* Headers */}
+            <div className="p-6 bg-gray-50">
+              <div className="h-16"></div> {/* Empty space for alignment */}
+              <div className="font-bold text-gray-500 uppercase text-xs tracking-wider mt-8 mb-4">Functies</div>
+            </div>
+            
+            {plans.map((plan, index) => (
+              <div key={plan.name} className={`p-6 relative ${plan.isPopular ? 'bg-brand-50' : 'bg-white'}`}>
+                {plan.isPopular && (
+                  <div className="absolute top-0 inset-x-0 text-center">
+                    <Badge variant="default" className="px-4 py-1 bg-brand-500 text-white transform -translate-y-1/2">
                       Meest gekozen
                     </Badge>
                   </div>
-                  Professional
-                </TableHead>
-                <TableHead className="text-center font-bold text-gray-900">Enterprise</TableHead>
-              </TableRow>
-              <TableRow className="border-b-2 border-gray-200">
-                <TableHead className="w-1/4 font-bold text-gray-900">Prijs</TableHead>
-                <TableHead className="text-center font-bold">
-                  {annual ? plans[0].price.yearly : plans[0].price.monthly} <span className="text-sm font-normal text-gray-500">/maand</span>
-                </TableHead>
-                <TableHead className="text-center font-bold bg-brand-50 text-brand-800">
-                  {annual ? plans[1].price.yearly : plans[1].price.monthly} <span className="text-sm font-normal text-gray-500">/maand</span>
-                </TableHead>
-                <TableHead className="text-center font-bold">
-                  {annual ? plans[2].price.yearly : plans[2].price.monthly} <span className="text-sm font-normal text-gray-500">/maand</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {featureComparison.map((item, index) => (
-                <TableRow key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                  <TableCell className="font-medium">{item.feature}</TableCell>
-                  <TableCell className="text-center">
-                    {typeof item.starter === 'boolean' ? (
-                      item.starter ? (
-                        <Check size={18} className="mx-auto text-green-500" />
-                      ) : (
-                        <X size={18} className="mx-auto text-gray-300" />
-                      )
-                    ) : (
-                      <span>{item.starter}</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-center bg-brand-50">
-                    {typeof item.professional === 'boolean' ? (
-                      item.professional ? (
-                        <Check size={18} className="mx-auto text-green-500" />
-                      ) : (
-                        <X size={18} className="mx-auto text-gray-300" />
-                      )
-                    ) : (
-                      <span className="font-medium">{item.professional}</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {typeof item.enterprise === 'boolean' ? (
-                      item.enterprise ? (
-                        <Check size={18} className="mx-auto text-green-500" />
-                      ) : (
-                        <X size={18} className="mx-auto text-gray-300" />
-                      )
-                    ) : (
-                      <span>{item.enterprise}</span>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-              <TableRow className="bg-brand-50">
-                <TableCell colSpan={4} className="text-center py-4">
-                  <div className="flex justify-center gap-4">
-                    <a
-                      href={plans[0].stripeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="py-2 px-6 rounded-lg bg-white border border-brand-500 text-brand-600 hover:bg-gray-50 font-medium"
-                    >
-                      Probeer 30 dagen gratis
-                    </a>
-                    <a
-                      href="#contact"
-                      className="py-2 px-6 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white hover:opacity-90 font-medium"
-                    >
-                      Vraag een demo aan
-                    </a>
+                )}
+                <div className={`text-center ${plan.isPopular ? 'pt-4' : ''}`}>
+                  <h3 className="text-xl font-bold">{plan.name}</h3>
+                  <div className="my-4">
+                    <span className="text-3xl font-bold">
+                      {annual ? plan.price.yearly : plan.price.monthly}
+                    </span>
+                    <span className="text-gray-500">/maand</span>
                   </div>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+                  <a
+                    href={plan.stripeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`block w-full py-2 px-4 text-center rounded-lg font-medium text-sm transition-colors ${
+                      plan.isPopular
+                        ? 'bg-brand-500 text-white hover:bg-brand-600'
+                        : 'border border-gray-200 text-brand-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Probeer 30 dagen gratis
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Features comparison rows */}
+          {featureComparison.map((item, rowIndex) => (
+            <div key={rowIndex} className={`grid grid-cols-4 divide-x divide-gray-100 ${rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+              <div className="p-4 font-medium">{item.feature}</div>
+              
+              {/* Starter column */}
+              <div className="p-4 text-center">
+                {typeof item.starter === 'boolean' ? (
+                  item.starter ? (
+                    <Check size={20} className="mx-auto text-green-500" />
+                  ) : (
+                    <X size={20} className="mx-auto text-gray-300" />
+                  )
+                ) : (
+                  <span>{item.starter}</span>
+                )}
+              </div>
+              
+              {/* Professional column */}
+              <div className="p-4 text-center">
+                {typeof item.professional === 'boolean' ? (
+                  item.professional ? (
+                    <Check size={20} className="mx-auto text-green-500" />
+                  ) : (
+                    <X size={20} className="mx-auto text-gray-300" />
+                  )
+                ) : (
+                  <span className="font-medium">{item.professional}</span>
+                )}
+              </div>
+              
+              {/* Enterprise column */}
+              <div className="p-4 text-center">
+                {typeof item.enterprise === 'boolean' ? (
+                  item.enterprise ? (
+                    <Check size={20} className="mx-auto text-green-500" />
+                  ) : (
+                    <X size={20} className="mx-auto text-gray-300" />
+                  )
+                ) : (
+                  <span>{item.enterprise}</span>
+                )}
+              </div>
+            </div>
+          ))}
+          
+          {/* Bottom CTA section */}
+          <div className="grid grid-cols-4 divide-x divide-gray-100 bg-gray-50 border-t border-gray-100">
+            <div className="p-6">
+              <p className="text-sm text-gray-500">
+                Twijfelt u welk pakket het beste past bij uw situatie?
+              </p>
+            </div>
+            <div className="p-4 flex items-center justify-center">
+              <a
+                href={plans[0].stripeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2 px-4 rounded-lg bg-white border border-gray-200 text-brand-600 hover:bg-gray-50 font-medium text-sm"
+              >
+                Starter kiezen
+              </a>
+            </div>
+            <div className="p-4 flex items-center justify-center bg-brand-50">
+              <a
+                href={plans[1].stripeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2 px-4 rounded-lg bg-brand-500 text-white hover:bg-brand-600 font-medium text-sm"
+              >
+                Professional kiezen
+              </a>
+            </div>
+            <div className="p-4 flex items-center justify-center">
+              <a
+                href={plans[2].stripeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2 px-4 rounded-lg bg-white border border-gray-200 text-brand-600 hover:bg-gray-50 font-medium text-sm"
+              >
+                Enterprise kiezen
+              </a>
+            </div>
+          </div>
         </div>
       )}
 
