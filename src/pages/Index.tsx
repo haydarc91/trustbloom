@@ -42,9 +42,9 @@ const Index = () => {
         <HeroSection />
         
         <Section color="default">
-          <div className="py-6">
+          <div className="py-8 md:py-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
                 Ons <span className="text-brand-600 relative">unieke concept</span> helpt bedrijven hun online reputatie te verbeteren
               </h2>
               <p className="text-lg text-gray-600">
