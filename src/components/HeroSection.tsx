@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Star, StarHalf, Sparkles, Filter, Mail, MessageSquare } from 'lucide-react';
+import { ArrowRight, Star, StarHalf, Sparkles, Filter, Mail, MessageSquare, Bot } from 'lucide-react';
 import { Badge } from './ui/badge';
 
 const HeroSection = () => {
@@ -23,12 +23,12 @@ const HeroSection = () => {
               </span> met ons unieke review systeem
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-lg text-balance">
-              Verzamel reviews van meer dan 35 platforms, reageer eenvoudig, en wijs klanten automatisch naar het juiste review kanaal. Onze klanten zien gemiddeld 30% meer positieve reviews.
+              Verzamel reviews van meer dan 35 platforms, reageer eenvoudig met AI, en wijs klanten automatisch naar het juiste review kanaal. Onze klanten zien gemiddeld 30% meer positieve reviews.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <a href="#contact" className="btn-primary inline-flex items-center justify-center bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700">
-                <span>Vraag een demo aan</span>
+              <a href="https://buy.stripe.com/4gw2bX1PL7Hqf4IbIJ" className="btn-primary inline-flex items-center justify-center bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700">
+                <span>Start 30 dagen gratis test</span>
                 <ArrowRight size={18} className="ml-2" />
               </a>
               <a href="#how-it-works" className="btn-secondary inline-flex items-center justify-center">
@@ -48,6 +48,10 @@ const HeroSection = () => {
               <div className="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-brand-100 shadow-sm flex items-center">
                 <MessageSquare size={16} className="text-brand-500 mr-1.5" />
                 <span className="text-sm">35+ platform integraties</span>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-brand-100 shadow-sm flex items-center">
+                <Bot size={16} className="text-brand-500 mr-1.5" />
+                <span className="text-sm">AI review antwoorden</span>
               </div>
             </div>
 
@@ -100,8 +104,8 @@ const HeroSection = () => {
             
             <div className="absolute -bottom-2 right-1/4 bg-brand-50 border border-brand-100 rounded-xl shadow-soft p-4 animate-pulse-soft animation-delay-1000">
               <div className="flex items-center space-x-2">
-                <Sparkles size={16} className="text-brand-500" />
-                <span className="font-medium text-gray-800">Unieke filtering actief</span>
+                <Bot size={16} className="text-brand-500" />
+                <span className="font-medium text-gray-800">AI antwoord gegenereerd</span>
               </div>
             </div>
           </div>

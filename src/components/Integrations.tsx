@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Check, ExternalLink, ChevronRight, PlusCircle } from 'lucide-react';
+import { Check, ExternalLink, ChevronRight, PlusCircle, MessageSquare, Bot } from 'lucide-react';
 import Section from './ui/Section';
 import { Card, CardContent } from './ui/card';
 import { Checkbox } from './ui/checkbox';
@@ -98,13 +98,8 @@ const Integrations = () => {
               <Card key={integration.name} className="overflow-hidden group hover:shadow-lg transition-all duration-300 border-gray-100">
                 <CardContent className="p-6 flex items-center justify-between">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 mr-5">
-                      <img 
-                        src={integration.logo} 
-                        alt={`${integration.name} logo`} 
-                        className="w-16 h-16 object-contain rounded-lg" 
-                        loading="lazy"
-                      />
+                    <div className="flex-shrink-0 mr-5 bg-gray-100 rounded-lg w-16 h-16 flex items-center justify-center">
+                      <div className="text-2xl font-bold text-brand-600">{integration.name.charAt(0)}</div>
                     </div>
                     <div>
                       <h4 className="text-xl font-semibold text-gray-900">{integration.name}</h4>
@@ -139,13 +134,8 @@ const Integrations = () => {
                 className="bg-white rounded-xl border border-gray-200 hover:border-brand-300 transition-all duration-200 p-5 flex flex-col"
               >
                 <div className="flex items-center mb-3">
-                  <div className="w-14 h-14 rounded-lg flex items-center justify-center mr-3 overflow-hidden bg-white">
-                    <img 
-                      src={integration.logo} 
-                      alt={`${integration.name} logo`} 
-                      className="w-12 h-12 object-contain" 
-                      loading="lazy"
-                    />
+                  <div className="w-14 h-14 rounded-lg flex items-center justify-center mr-3 overflow-hidden bg-gray-100">
+                    <div className="text-xl font-bold text-brand-600">{integration.name.charAt(0)}</div>
                   </div>
                   <div className="flex-grow">
                     <h4 className="font-medium text-gray-900">{integration.name}</h4>
@@ -159,7 +149,7 @@ const Integrations = () => {
             ))}
         </div>
 
-        {/* Custom Integration Section */}
+        {/* Custom Integration Section - Updated for Professional package or higher */}
         <div className="bg-gradient-to-r from-brand-50 to-blue-50 p-8 rounded-xl border border-brand-100 mb-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-8">
@@ -171,6 +161,9 @@ const Integrations = () => {
                 Geen van bovenstaande platforms? Geen probleem! Wij ontwikkelen ook maatwerk koppelingen 
                 voor uw specifieke behoeften. Onze technisch specialisten kunnen vrijwel elk reviewplatform 
                 of CRM-systeem verbinden met ons platform.
+              </p>
+              <p className="text-brand-600 font-medium mt-3">
+                Kosteloos bij het Professioneel pakket of hoger!
               </p>
             </div>
             <div className="flex-shrink-0">
@@ -205,7 +198,7 @@ const Integrations = () => {
         </div>
       </div>
 
-      {/* Refactored review management section with better styling */}
+      {/* Refactored review management section with better styling and AI highlight */}
       <div className="mt-20">
         <h3 className="text-2xl font-bold mb-6 text-center text-gray-900">Uniek concept voor betere reviews</h3>
         <p className="text-lg max-w-3xl mx-auto mb-10 text-center text-gray-600">
@@ -257,6 +250,19 @@ const Integrations = () => {
                 <div>
                   <h5 className="font-medium text-gray-900 mb-1">SMS en e-mail uitnodigingen</h5>
                   <p className="text-gray-600 text-sm">Bereik klanten via hun voorkeurskanaal voor hogere conversie</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 flex items-start shadow-sm border-2 border-brand-100">
+                <div className="flex-shrink-0 bg-brand-500 text-white rounded-full p-1 mr-3 mt-0.5">
+                  <Bot size={16} />
+                </div>
+                <div>
+                  <h5 className="font-medium text-gray-900 mb-1 flex items-center">
+                    AI-gegenereerde review antwoorden
+                    <span className="ml-2 px-2 py-0.5 bg-brand-100 text-brand-700 text-xs rounded-full">Nieuw!</span>
+                  </h5>
+                  <p className="text-gray-600 text-sm">Automatisch gepersonaliseerde reacties op reviews met onze AI-technologie</p>
                 </div>
               </div>
             </div>

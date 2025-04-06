@@ -1,16 +1,19 @@
 
 import React, { useState } from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, X, Sparkles, Zap } from 'lucide-react';
 import Section from './ui/Section';
 import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 
 interface PricingPlan {
   name: string;
-  price: { monthly: string; yearly: string };
+  price: string;
   description: string;
   features: string[];
   isPopular?: boolean;
   stripeLink: string;
+  aiFeatures?: boolean;
+  customIntegrations?: boolean;
 }
 
 interface FeatureComparison {
@@ -23,7 +26,7 @@ interface FeatureComparison {
 const plans: PricingPlan[] = [
   {
     name: 'Starter',
-    price: { monthly: '€49', yearly: '€39' },
+    price: '€49',
     description: 'Perfect voor kleine bedrijven die net beginnen met het verzamelen van reviews.',
     features: [
       'Tot 100 review-uitnodigingen per maand',
@@ -36,7 +39,7 @@ const plans: PricingPlan[] = [
   },
   {
     name: 'Professional',
-    price: { monthly: '€99', yearly: '€79' },
+    price: '€99',
     description: 'Voor groeiende bedrijven die hun online reputatie serieus willen verbeteren.',
     features: [
       'Tot 500 review-uitnodigingen per maand',
@@ -44,15 +47,18 @@ const plans: PricingPlan[] = [
       'Geavanceerde reviewwidgets',
       'Prioriteit e-mail & telefonische ondersteuning',
       'Wekelijkse rapportage',
-      'Review-antwoord suggesties',
+      'AI review-antwoord suggesties',
       'Aangepaste branding',
+      'Gratis maatwerk integraties',
     ],
     isPopular: true,
-    stripeLink: 'https://buy.stripe.com/4gw2bX1PL7Hqf4IbIJ'
+    stripeLink: 'https://buy.stripe.com/4gw2bX1PL7Hqf4IbIJ',
+    aiFeatures: true,
+    customIntegrations: true
   },
   {
     name: 'Enterprise',
-    price: { monthly: '€199', yearly: '€159' },
+    price: '€199',
     description: 'Voor grote organisaties met meerdere locaties en uitgebreide behoeften.',
     features: [
       'Onbeperkte review-uitnodigingen',
@@ -60,11 +66,14 @@ const plans: PricingPlan[] = [
       'Volledig aanpasbare reviewwidgets',
       'Toegewijd accountmanager',
       'Realtime rapportage & API-toegang',
-      'AI-review-antwoord suggesties',
+      'Geavanceerde AI-review antwoorden',
       'Multi-locatie beheer',
       'White label oplossing',
+      'Gratis maatwerk integraties',
     ],
-    stripeLink: 'https://buy.stripe.com/4gwg2Namhf9S09O8wy'
+    stripeLink: 'https://buy.stripe.com/4gwg2Namhf9S09O8wy',
+    aiFeatures: true,
+    customIntegrations: true
   },
 ];
 
@@ -74,10 +83,11 @@ const featureComparison: FeatureComparison[] = [
   { feature: 'Reviewwidgets', starter: 'Basis', professional: 'Geavanceerd', enterprise: 'Volledig aanpasbaar' },
   { feature: 'Ondersteuning', starter: 'E-mail', professional: 'E-mail & Telefoon', enterprise: 'Dedicated accountmanager' },
   { feature: 'Rapportage', starter: 'Maandelijks', professional: 'Wekelijks', enterprise: 'Realtime + API' },
-  { feature: 'Antwoord suggesties', starter: false, professional: true, enterprise: 'AI-powered' },
+  { feature: 'AI-review antwoorden', starter: false, professional: true, enterprise: 'Geavanceerd' },
   { feature: 'Aangepaste branding', starter: false, professional: true, enterprise: true },
   { feature: 'Multi-locatie beheer', starter: false, professional: false, enterprise: true },
   { feature: 'White label oplossing', starter: false, professional: false, enterprise: true },
+  { feature: 'Maatwerk integraties', starter: false, professional: 'Inbegrepen', enterprise: 'Inbegrepen' },
   { 
     feature: 'Uniek reviewfilter systeem', 
     starter: 'Basis', 
@@ -87,7 +97,6 @@ const featureComparison: FeatureComparison[] = [
 ];
 
 const Pricing = () => {
-  const [annual, setAnnual] = useState(true);
   const [viewMode, setViewMode] = useState<'cards' | 'comparison'>('cards');
 
   return (
@@ -95,29 +104,8 @@ const Pricing = () => {
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold mb-4 text-gray-900">Eenvoudige, transparante tarieven</h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Kies het abonnement dat het beste bij uw bedrijf past. Altijd 30 dagen gratis proberen.
+          Kies het abonnement dat het beste bij uw bedrijf past. Alle pakketten inclusief 30 dagen gratis uitproberen.
         </p>
-
-        <div className="flex items-center justify-center mt-8">
-          <div className="bg-white rounded-lg shadow-sm p-1 inline-flex">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                !annual ? 'bg-brand-500 text-white' : 'bg-transparent text-gray-600'
-              }`}
-            >
-              Maandelijks
-            </button>
-            <button
-              onClick={() => setAnnual(true)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                annual ? 'bg-brand-500 text-white' : 'bg-transparent text-gray-600'
-              }`}
-            >
-              Jaarlijks <span className="text-xs opacity-80">20% korting</span>
-            </button>
-          </div>
-        </div>
 
         <div className="flex items-center justify-center mt-6">
           <div className="bg-white rounded-lg shadow-sm p-1 inline-flex">
@@ -166,10 +154,24 @@ const Pricing = () => {
 
                 <div className="mb-6">
                   <span className="text-4xl font-bold text-gray-900">
-                    {annual ? plan.price.yearly : plan.price.monthly}
+                    {plan.price}
                   </span>
                   <span className="text-gray-600 ml-2">/maand</span>
                 </div>
+
+                {plan.aiFeatures && (
+                  <div className="bg-brand-50 border border-brand-100 rounded-lg p-3 mb-6 flex items-center">
+                    <Sparkles size={18} className="text-brand-500 mr-2" />
+                    <span className="text-sm text-brand-700 font-medium">Inclusief AI review antwoorden</span>
+                  </div>
+                )}
+
+                {plan.customIntegrations && (
+                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-6 flex items-center">
+                    <Zap size={18} className="text-blue-500 mr-2" />
+                    <span className="text-sm text-blue-700 font-medium">Inclusief maatwerk integraties</span>
+                  </div>
+                )}
 
                 <a
                   href={plan.stripeLink}
@@ -181,7 +183,7 @@ const Pricing = () => {
                       : 'bg-white border border-gray-200 text-brand-600 hover:bg-gray-50'
                   }`}
                 >
-                  {plan.isPopular ? 'Begin uw 30 dagen proefperiode' : 'Probeer 30 dagen gratis'}
+                  {plan.isPopular ? 'Start nu gratis 30 dagen test' : 'Probeer 30 dagen gratis'}
                 </a>
               </div>
 
@@ -221,7 +223,7 @@ const Pricing = () => {
                   <h3 className="text-xl font-bold">{plan.name}</h3>
                   <div className="my-4">
                     <span className="text-3xl font-bold">
-                      {annual ? plan.price.yearly : plan.price.monthly}
+                      {plan.price}
                     </span>
                     <span className="text-gray-500">/maand</span>
                   </div>
@@ -235,7 +237,7 @@ const Pricing = () => {
                         : 'border border-gray-200 text-brand-600 hover:bg-gray-50'
                     }`}
                   >
-                    Probeer 30 dagen gratis
+                    Start 30 dagen gratis test
                   </a>
                 </div>
               </div>
@@ -302,7 +304,7 @@ const Pricing = () => {
                 rel="noopener noreferrer"
                 className="py-2 px-4 rounded-lg bg-white border border-gray-200 text-brand-600 hover:bg-gray-50 font-medium text-sm"
               >
-                Starter kiezen
+                Starter testen
               </a>
             </div>
             <div className="p-4 flex items-center justify-center bg-brand-50">
@@ -312,7 +314,7 @@ const Pricing = () => {
                 rel="noopener noreferrer"
                 className="py-2 px-4 rounded-lg bg-brand-500 text-white hover:bg-brand-600 font-medium text-sm"
               >
-                Professional kiezen
+                Professional testen
               </a>
             </div>
             <div className="p-4 flex items-center justify-center">
@@ -322,7 +324,7 @@ const Pricing = () => {
                 rel="noopener noreferrer"
                 className="py-2 px-4 rounded-lg bg-white border border-gray-200 text-brand-600 hover:bg-gray-50 font-medium text-sm"
               >
-                Enterprise kiezen
+                Enterprise testen
               </a>
             </div>
           </div>
@@ -330,16 +332,18 @@ const Pricing = () => {
       )}
 
       <div className="mt-16 bg-gradient-to-r from-brand-100 to-blue-100 p-8 rounded-2xl text-center">
-        <h3 className="text-2xl font-bold mb-3 text-gray-900">Ontdek ons unieke concept</h3>
+        <h3 className="text-2xl font-bold mb-3 text-gray-900">Begin direct met uw 30 dagen gratis test</h3>
         <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-          Onze klanten zien gemiddeld <span className="font-bold text-brand-700">30% meer positieve reviews</span> dan bij andere platforms. 
-          Wat is ons geheim? Vraag een demo aan en ontdek hoe wij zorgen voor een betere online reputatie.
+          Geen demo's nodig! Begin direct met een 30 dagen gratis test en ontdek zelf hoe onze klanten 
+          <span className="font-bold text-brand-700"> gemiddeld 30% meer positieve reviews</span> krijgen dan bij andere platforms.
         </p>
         <a
-          href="#contact"
+          href={plans[1].stripeLink}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-6 inline-block py-3 px-8 rounded-lg bg-gradient-to-r from-brand-600 to-brand-700 text-white hover:opacity-90 font-medium shadow-lg"
         >
-          Ontdek ons geheim
+          Start gratis 30 dagen test
         </a>
       </div>
     </Section>

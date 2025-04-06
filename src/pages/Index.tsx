@@ -16,6 +16,13 @@ const Index = () => {
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Update document title and meta description
+    document.title = "ReviewUp - Verbeter uw online reputatie met AI";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Verzamel en beheer reviews van 35+ platforms met ReviewUp, inclusief AI-gegenereerde review antwoorden en geautomatiseerde uitnodigingen. Start uw 30 dagen gratis test.");
+    }
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -49,7 +56,7 @@ const Index = () => {
               </h2>
               <p className="text-lg text-gray-600">
                 Ons reviewplatform zorgt voor gemiddeld 30% meer positieve reviews dan andere platforms. 
-                Ontdek hoe wij uw online aanwezigheid kunnen transformeren.
+                Met AI-gegenereerde antwoorden bespaart u tijd en verbetert u uw klantenservice.
               </p>
             </div>
           </div>
