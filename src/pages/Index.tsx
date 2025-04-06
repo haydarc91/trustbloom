@@ -10,6 +10,7 @@ import Pricing from '../components/Pricing';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import Section from '../components/ui/Section';
+import Integrations from '../components/Integrations';
 
 const Index = () => {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -56,6 +57,7 @@ const Index = () => {
         
         <HowItWorks />
         <Benefits />
+        <Integrations />
         <Testimonials />
         <Screenshots />
         <Pricing />

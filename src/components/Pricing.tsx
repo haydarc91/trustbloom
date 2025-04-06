@@ -18,6 +18,7 @@ interface PricingPlan {
   description: string;
   features: string[];
   isPopular?: boolean;
+  stripeLink: string;
 }
 
 interface FeatureComparison {
@@ -39,6 +40,7 @@ const plans: PricingPlan[] = [
       'E-mail ondersteuning',
       'Maandelijkse rapportage',
     ],
+    stripeLink: 'https://buy.stripe.com/3cs6sd661bXG9Ko5kk'
   },
   {
     name: 'Professional',
@@ -54,6 +56,7 @@ const plans: PricingPlan[] = [
       'Aangepaste branding',
     ],
     isPopular: true,
+    stripeLink: 'https://buy.stripe.com/4gw2bX1PL7Hqf4IbIJ'
   },
   {
     name: 'Enterprise',
@@ -69,6 +72,7 @@ const plans: PricingPlan[] = [
       'Multi-locatie beheer',
       'White label oplossing',
     ],
+    stripeLink: 'https://buy.stripe.com/4gwg2Namhf9S09O8wy'
   },
 ];
 
@@ -99,7 +103,7 @@ const Pricing = () => {
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold mb-4 text-gray-900">Eenvoudige, transparante tarieven</h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Kies het abonnement dat het beste bij uw bedrijf past. Altijd 14 dagen gratis proberen.
+          Kies het abonnement dat het beste bij uw bedrijf past. Altijd 30 dagen gratis proberen.
         </p>
 
         <div className="flex items-center justify-center mt-8">
@@ -146,19 +150,19 @@ const Pricing = () => {
       </div>
 
       {viewMode === 'cards' ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           {plans.map((plan) => (
             <div
               key={plan.name}
               className={`rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
                 plan.isPopular
-                  ? 'shadow-xl border-2 border-brand-500 relative'
+                  ? 'shadow-xl border-2 border-brand-500 relative mt-6'
                   : 'shadow-card bg-white border border-gray-100'
               }`}
             >
               {plan.isPopular && (
                 <div className="absolute top-0 inset-x-0 text-center transform -translate-y-1/2">
-                  <Badge variant="default" className="px-6 py-1.5 bg-brand-500">
+                  <Badge variant="default" className="px-6 py-1.5 bg-brand-500 text-white">
                     Meest gekozen
                   </Badge>
                 </div>
@@ -176,14 +180,16 @@ const Pricing = () => {
                 </div>
 
                 <a
-                  href="#contact"
+                  href={plan.stripeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`block w-full py-3 px-6 text-center rounded-lg font-medium transition-colors ${
                     plan.isPopular
                       ? 'bg-gradient-to-r from-brand-500 to-brand-600 text-white hover:opacity-90'
                       : 'bg-white border border-gray-200 text-brand-600 hover:bg-gray-50'
                   }`}
                 >
-                  {plan.isPopular ? 'Begin uw gratis proefperiode' : 'Probeer gratis'}
+                  {plan.isPopular ? 'Begin uw 30 dagen proefperiode' : 'Probeer 30 dagen gratis'}
                 </a>
               </div>
 
@@ -202,13 +208,20 @@ const Pricing = () => {
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl shadow-xl bg-white border border-gray-100">
+        <div className="overflow-x-auto rounded-xl shadow-xl bg-white border border-gray-100 mt-10">
           <Table>
             <TableHeader>
               <TableRow className="bg-brand-50">
                 <TableHead className="w-1/4 font-bold text-gray-900">Functie</TableHead>
                 <TableHead className="text-center font-bold text-gray-900">Starter</TableHead>
-                <TableHead className="text-center font-bold text-gray-900 bg-brand-100">Professional</TableHead>
+                <TableHead className="text-center font-bold text-gray-900 bg-brand-100 relative">
+                  <div className="absolute -top-10 inset-x-0 text-center">
+                    <Badge variant="default" className="px-4 py-1 bg-brand-500 text-white">
+                      Meest gekozen
+                    </Badge>
+                  </div>
+                  Professional
+                </TableHead>
                 <TableHead className="text-center font-bold text-gray-900">Enterprise</TableHead>
               </TableRow>
               <TableRow className="border-b-2 border-gray-200">
@@ -267,10 +280,12 @@ const Pricing = () => {
                 <TableCell colSpan={4} className="text-center py-4">
                   <div className="flex justify-center gap-4">
                     <a
-                      href="#contact"
+                      href={plans[0].stripeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="py-2 px-6 rounded-lg bg-white border border-brand-500 text-brand-600 hover:bg-gray-50 font-medium"
                     >
-                      Probeer gratis
+                      Probeer 30 dagen gratis
                     </a>
                     <a
                       href="#contact"

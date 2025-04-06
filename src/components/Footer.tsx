@@ -62,6 +62,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="#integrations" className="text-gray-600 hover:text-brand-600 transition-colors">
+                  Integraties
+                </a>
+              </li>
+              <li>
                 <a href="#pricing" className="text-gray-600 hover:text-brand-600 transition-colors">
                   Prijzen
                 </a>
@@ -116,14 +121,14 @@ const Footer = () => {
               <li className="flex items-start">
                 <MapPin size={18} className="text-brand-600 mr-3 mt-0.5" />
                 <span className="text-gray-600">
-                  Hoofdstraat 123<br />
-                  1234 AB Amsterdam
+                  Waterscheerling 93<br />
+                  3824 GB Amersfoort
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone size={18} className="text-brand-600 mr-3" />
-                <a href="tel:+31201234567" className="text-gray-600 hover:text-brand-600 transition-colors">
-                  +31 20 123 4567
+                <a href="tel:+31852502502" className="text-gray-600 hover:text-brand-600 transition-colors">
+                  085 250 2502
                 </a>
               </li>
               <li className="flex items-center">
