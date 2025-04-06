@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { Check, ExternalLink, ChevronRight } from 'lucide-react';
+import { Check, ExternalLink, ChevronRight, PlusCircle } from 'lucide-react';
 import Section from './ui/Section';
 import { Card, CardContent } from './ui/card';
 import { Checkbox } from './ui/checkbox';
+import { Button } from './ui/button';
 
-// Selectie van belangrijkste integraties met hun logo's
+// Featured integrations with their logos
 const featuredIntegrations = [
   { 
     name: 'Google', 
@@ -54,11 +55,16 @@ const featuredIntegrations = [
     description: 'Werkgeversrecensies importeren',
     logo: '/lovable-uploads/9eeee3e7-e6c0-4c2b-aebc-c48e78af48ab.png' 
   },
+  { 
+    name: 'Tripadvisor', 
+    description: 'Reis- en restaurantrecensies beheren',
+    logo: '/lovable-uploads/10d94c10-1b09-40c0-b4dc-b48d21af9af9.png' 
+  },
 ];
 
-// Meer beschikbare integraties - alleen namen vermeld
+// More available integrations - only names mentioned
 const moreIntegrations = [
-  'Tripadvisor', 'Agoda', 'Amazon', 'eBay', 'Hotels.com', 'OpenTable', 
+  'Agoda', 'Amazon', 'eBay', 'Hotels.com', 'OpenTable', 
   'Healthgrades', 'RateMDs', 'Zocdoc', 'BBB', 'Foursquare', 'Zillow', 
   'Expedia', 'Zomato', 'Capterra', 'VRBO', 'Angi', 'Glassdoor', 'HomeAdvisor', 
   'Houzz', 'Lawyers.com', 'Avvo', 'Thumbtack', 'CarGurus', 'DealerRater', 
@@ -97,6 +103,7 @@ const Integrations = () => {
                         src={integration.logo} 
                         alt={`${integration.name} logo`} 
                         className="w-16 h-16 object-contain rounded-lg" 
+                        loading="lazy"
                       />
                     </div>
                     <div>
@@ -137,6 +144,7 @@ const Integrations = () => {
                       src={integration.logo} 
                       alt={`${integration.name} logo`} 
                       className="w-12 h-12 object-contain" 
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex-grow">
@@ -149,6 +157,28 @@ const Integrations = () => {
                 <p className="text-sm text-gray-600">{integration.description}</p>
               </div>
             ))}
+        </div>
+
+        {/* Custom Integration Section */}
+        <div className="bg-gradient-to-r from-brand-50 to-blue-50 p-8 rounded-xl border border-brand-100 mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="mb-6 md:mb-0 md:mr-8">
+              <h3 className="text-xl font-bold mb-3 text-gray-900 flex items-center">
+                <PlusCircle className="mr-2 text-brand-600" size={24} />
+                Aangepaste integraties op maat
+              </h3>
+              <p className="text-gray-700 max-w-2xl">
+                Geen van bovenstaande platforms? Geen probleem! Wij ontwikkelen ook maatwerk koppelingen 
+                voor uw specifieke behoeften. Onze technisch specialisten kunnen vrijwel elk reviewplatform 
+                of CRM-systeem verbinden met ons platform.
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              <Button variant="default" className="bg-brand-600 hover:bg-brand-700 text-white px-6">
+                Informeer naar maatwerk
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* "Meer integraties" sectie */}
@@ -175,7 +205,7 @@ const Integrations = () => {
         </div>
       </div>
 
-      {/* Uniek concept sectie opnieuw ontworpen */}
+      {/* Refactored review management section with better styling */}
       <div className="mt-20">
         <h3 className="text-2xl font-bold mb-6 text-center text-gray-900">Uniek concept voor betere reviews</h3>
         <p className="text-lg max-w-3xl mx-auto mb-10 text-center text-gray-600">
